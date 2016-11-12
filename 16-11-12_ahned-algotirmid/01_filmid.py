@@ -45,3 +45,51 @@ filmid = [
 ]
 
 print(filmid)
+
+
+def minutid(kellaaeg):
+    split = kellaaeg.split(":")
+    return int(split[0]) * 60 + int(split[1])
+
+
+print(minutid("10:30"))
+
+
+def l6pp(film):
+    algus = film[0]
+    kestvus = film[1]
+    return minutid(algus) + minutid(kestvus)
+
+
+print(l6pp(filmid[0]))
+
+
+def sorteeri(filmid):
+    koos_l6puga = []
+    for film in filmid:
+        koos_l6puga.append((l6pp(film), film[0], film[1]))
+    koos_l6puga.sort(key=lambda film: film[0])
+    return koos_l6puga
+
+
+print(sorteeri(filmid))
+
+
+def vali_filmid(filmid):
+    valitud = []
+    valitud_indeksid = []
+    filmid = sorteeri(filmid)
+    l6pp = 0
+
+    for i, film in enumerate(filmid):
+        algus = film[1]
+        if (minutid(algus) > l6pp):
+            valitud.append(film)
+            valitud_indeksid.append(i)
+            l6pp = film[0]
+
+    return valitud
+
+
+print(vali_filmid(filmid))
+print(len(vali_filmid(filmid)))
