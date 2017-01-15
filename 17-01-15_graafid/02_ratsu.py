@@ -60,4 +60,35 @@ def lyhim_tee(algus, l6pp):
                 lisatud.add(naaber)
 
 
-lyhim_tee("a1", "h8")
+# lyhim_tee("a1", "h8")
+
+
+def teekond_koik_ruudud(algus):
+    from collections import deque
+    q = deque()
+    lisatud = set()
+
+    q.append(algus)
+    lisatud.add(algus)
+
+    prev = dict()
+    tipp = None
+
+    teekond = []
+    while q:
+        tipp = q.pop()
+        # print("tipp: " + tipp)
+        teekond.append(tipp)
+
+        naabrid = ratsu_kaigud(tipp)
+        for naaber in naabrid:
+            if naaber not in lisatud:
+                prev[naaber] = tipp
+                q.append(naaber)
+                lisatud.add(naaber)
+
+    print(len(teekond))
+    print(teekond)
+
+#  teekond_koik_ruudud("a1")
+

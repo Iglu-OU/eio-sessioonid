@@ -13,11 +13,12 @@ graaf = [
     [],  # tipp h
 ]
 
-kaidud = [False] * len(graaf)
+kaidud = [False] * 1001
 
 def sygav_rekurs(graaf, tipp):
 
-    print(tipud[tipp])
+    # print(tipud[tipp])
+    print(tipp)
 
     naabrid = graaf[tipp]
     for naaber in naabrid:
@@ -26,8 +27,18 @@ def sygav_rekurs(graaf, tipp):
             sygav_rekurs(graaf, naaber)
 
 
-print("Sügavuti")
-sygav_rekurs(graaf, 0)
+#print("Sügavuti")
+#sygav_rekurs(graaf, 0)
+
+def tee_sygav_graaf():
+    graaf = []
+    for i in range(1000000):
+        graaf.append([i+1])
+    graaf.append([])
+
+    return graaf
+
+#sygav_rekurs(tee_sygav_graaf(), 0)
 
 
 # kasutame pythoni standard teekides olevat järjekorra implementatsiooni
@@ -41,7 +52,7 @@ def laiuti(graaf, algus):
     lisatud[algus] = True
 
     while jarjekord:
-        tipp = jarjekord.pop()
+        tipp = jarjekord.popleft()
 
         print(tipud[tipp])
 
@@ -52,6 +63,26 @@ def laiuti(graaf, algus):
                 lisatud[naaber] = True
 
 
-print ("Laiuti:")
-laiuti(graaf, 0)
+#print ("Laiuti:")
+#laiuti(graaf, 0)
 
+# Graafi sügavuti läbimine kasutades magasini
+def sygavuti(graaf, algus):
+    lisatud = [False] * len(graaf)
+    magasin = deque()
+    magasin.append(algus)
+    lisatud[algus] = True
+
+    while magasin:
+        tipp = magasin.pop()
+
+        print(tipp)
+
+        naabrid = reversed(graaf[tipp])
+        for naaber in naabrid:
+            if not lisatud[naaber]:
+                magasin.append(naaber)
+                lisatud[naaber] = True
+
+#print ("Sügavuti:")
+sygavuti(tee_sygav_graaf(), 0)
