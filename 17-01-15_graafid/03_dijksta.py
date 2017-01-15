@@ -68,4 +68,40 @@ def leia_lyhim(graaf, algus):
                 heappush(kuhi, (uus_kaugus, naaber))
 
 
-leia_lyhim(graaf, 5)
+# leia_lyhim(graaf, 5)
+
+
+def leia_lyhim_loop(graaf, algus):
+    import math
+
+    kaugused = [math.inf] * len(graaf)
+    kaugused[algus] = 0
+
+    kaidud = [False] * len(graaf)
+
+    jarjekord = []
+    jarjekord.append(algus)
+
+    while jarjekord:
+        tipp = jarjekord[0]
+        for kandidaat in jarjekord:
+            if kaugused[kandidaat] < kaugused[tipp]:
+                tipp = kandidaat
+
+        jarjekord.remove(tipp)
+        if kaidud[tipp]:
+            continue
+        kaidud[tipp] = True
+        kaugus_kokku = kaugused[tipp]
+        print((kaugus_kokku, tipp))
+
+        naabrid = graaf[tipp]
+        for (naaber, kaugus) in naabrid:
+            seni_parim = kaugused[naaber]
+            uus_kaugus = kaugus_kokku + kaugus
+            if uus_kaugus < seni_parim:
+                kaugused[naaber] = uus_kaugus
+                jarjekord.append(naaber)
+
+
+leia_lyhim_loop(graaf, 0)
