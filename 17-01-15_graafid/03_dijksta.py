@@ -29,12 +29,43 @@ servad = [
     (7, 8, 19),
 ]
 
+graaf = []
+for i in range(9):
+    graaf.append([])
 
-print(len(servad))
+for serv in servad:
+    graaf[serv[0]].append((serv[1], serv[2]))
+    graaf[serv[1]].append((serv[0], serv[2]))
 
 
-graaf = [
-    [(1, 22), (2, 9), (3, 12)],  # A
-    [(7, 34), (2, 35), (5, 36)],  # B
-    [()]
-]
+def leia_lyhim(graaf, algus):
+    from heapq import heappush
+    from heapq import heappop
+    import math
+
+    kaugused = [math.inf] * len(graaf)
+    kaugused[algus] = 0
+
+    kaidud = [False] * len(graaf)
+
+    kuhi = []
+    heappush(kuhi, (0, algus))
+
+    while kuhi:
+        (kaugus_kokku, tipp) = heappop(kuhi)
+        if kaidud[tipp]:
+            continue
+        kaidud[tipp] = True
+
+        print((kaugus_kokku, tipp))
+
+        naabrid = graaf[tipp]
+        for (naaber, kaugus) in naabrid:
+            seni_parim = kaugused[naaber]
+            uus_kaugus = kaugus_kokku + kaugus
+            if uus_kaugus < seni_parim:
+                kaugused[naaber] = uus_kaugus
+                heappush(kuhi, (uus_kaugus, naaber))
+
+
+leia_lyhim(graaf, 5)
