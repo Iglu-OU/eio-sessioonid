@@ -1,3 +1,6 @@
+# Alati ei pea graaf olemal eelnevalt tervikuna defineeritud,
+# piisab, kui me teame reegleid kuidas leida iga tipu naabrid
+
 
 def ratsu_kaigud(algus):
     naabrid = []
@@ -25,4 +28,36 @@ def ratsu_kaigud(algus):
     return naabrid
 
 
-print(ratsu_kaigud("h8"))
+# print(ratsu_kaigud("h8"))
+
+
+def lyhim_tee(algus, l6pp):
+    from collections import deque
+    q = deque()
+    lisatud = set()
+
+    q.append(algus)
+    lisatud.add(algus)
+
+    prev = dict()
+
+    while q:
+        tipp = q.popleft()
+
+        if tipp == l6pp:
+            print("kohal")
+            print(tipp)
+            while tipp in prev:
+                print(prev[tipp])
+                tipp = prev[tipp]
+            return
+
+        naabrid = ratsu_kaigud(tipp)
+        for naaber in naabrid:
+            if naaber not in lisatud:
+                prev[naaber] = tipp
+                q.append(naaber)
+                lisatud.add(naaber)
+
+
+lyhim_tee("a1", "h8")

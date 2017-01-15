@@ -41,7 +41,7 @@ def laiuti(graaf, algus):
     lisatud[algus] = True
 
     while jarjekord:
-        tipp = jarjekord.popleft()
+        tipp = jarjekord.pop()
 
         print(tipud[tipp])
 
