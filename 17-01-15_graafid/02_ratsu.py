@@ -92,3 +92,32 @@ def teekond_koik_ruudud(algus):
 
 #  teekond_koik_ruudud("a1")
 
+def sidus_komp(etturid):
+    from collections import deque
+    q = deque()
+
+    vaatamata = []
+    for x in "abcdefgh":
+        for y in "12345678":
+            vaatamata.append(x + y)
+
+    while vaatamata:
+        algus = vaatamata.pop()
+        if algus in etturid:
+            continue
+        print("Otsin komponenti alates " + algus)
+        q.append(algus)
+        komponent = []
+        while q:
+            tipp = q.pop()
+            if tipp in etturid:
+                continue
+            komponent.append(tipp)
+            naabrid = ratsu_kaigud(tipp)
+            for naaber in naabrid:
+                if naaber in vaatamata:
+                    q.append(naaber)
+                    vaatamata.remove(naaber)
+        print(komponent)
+
+sidus_komp(["h8", "b3", "c2", "b5", "c6", "e6", "f5", "e2", "f3", "g5", "f4", "f2"])
